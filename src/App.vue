@@ -3,16 +3,9 @@
     <header class="header">
       <nav class="inner">
         <router-link to="/" exact>
-          <img class="logo" src="~public/logo-48.png" alt="logo">
+          <img class="logo" src="~public/logo.png" alt="logo">
         </router-link>
-        <router-link to="/top">Top</router-link>
-        <router-link to="/new">New</router-link>
-        <router-link to="/show">Show</router-link>
-        <router-link to="/ask">Ask</router-link>
-        <router-link to="/job">Jobs</router-link>
-        <a class="github" href="https://github.com/vuejs/vue-hackernews-2.0" target="_blank">
-          Built with Vue.js
-        </a>
+        <router-link to="/show"><i class="fa fa-heart"></i></router-link>
       </nav>
     </header>
     <transition name="fade" mode="out-in">
@@ -20,6 +13,15 @@
     </transition>
   </div>
 </template>
+
+<script>
+import vue from 'vue'
+//require('font-awesome-webpack')
+export default {
+  name: 'App',
+}
+
+</script>
 
 <style lang="stylus">
 body
@@ -36,10 +38,11 @@ a
   text-decoration none
 
 .header
-  background-color #ff6600
+  background-color #f0f8ff
+  border-bottom 1px solid #e5e5e5
   position fixed
   z-index 999
-  height 55px
+  height 50px
   top 0
   left 0
   right 0
@@ -47,7 +50,6 @@ a
     max-width 800px
     box-sizing border-box
     margin 0px auto
-    padding 15px 5px
   a
     color rgba(255, 255, 255, .8)
     line-height 24px
@@ -71,7 +73,7 @@ a
     float right
 
 .logo
-  width 24px
+  height 30px
   margin-right 10px
   display inline-block
   vertical-align middle
@@ -89,14 +91,14 @@ a
 
 @media (max-width 860px)
   .header .inner
-    padding 15px 30px
+    padding 10px
 
 @media (max-width 600px)
   body
     font-size 14px
   .header
     .inner
-      padding 15px
+      padding 10px
     a
       margin-right 1em
     .github

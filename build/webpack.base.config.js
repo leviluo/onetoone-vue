@@ -48,7 +48,13 @@ module.exports = {
           limit: 10000,
           name: '[name].[ext]?[hash]'
         }
-      }
+      },
+      { 
+        test: /\.less$/, 
+        loader: 'style-loader!css-loader!less-loader' 
+      },
+      { test: /\.(woff|eot|ttf)\??.*$/, 
+        loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
     ]
   },
   performance: {
