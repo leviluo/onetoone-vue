@@ -5,7 +5,8 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo.png" alt="logo">
         </router-link>
-        <router-link to="/show"><i class="fa fa-heart"></i></router-link>
+        <router-link to="/location">位置:</router-link>
+        <router-link class="pull-right" to="/membercenter">个人</router-link>
       </nav>
     </header>
     <transition name="fade" mode="out-in">
@@ -15,17 +16,30 @@
 </template>
 
 <script>
-import vue from 'vue'
+//import vue from 'vue'
 //require('font-awesome-webpack')
-export default {
-  name: 'App',
+
+//import Location from './components/Location.vue'
+
+function fetchUser (store) {
+  return store.dispatch('FETCH_USER', {
+    id: store.state.route.params.id
+  })
 }
 
+export default {
+  name: 'App',
+  preFetch: fetchUser,
+  beforeMount () {
+    fetchUser(this.$store)
+  }
+  //components:  { Location }
+}
 </script>
 
 <style lang="stylus">
 body
-  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family "Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica
   font-size 15px
   background-color lighten(#eceef1, 30%)
   margin 0
@@ -36,7 +50,6 @@ body
 a
   color #34495e
   text-decoration none
-
 .header
   background-color #f0f8ff
   border-bottom 1px solid #e5e5e5
@@ -47,25 +60,29 @@ a
   left 0
   right 0
   .inner
-    max-width 800px
     box-sizing border-box
     margin 0px auto
+    padding 10px
+  .pull-right
+    float right
   a
-    color rgba(255, 255, 255, .8)
+    color #37a
+    text-decoration: none;
+    cursor: pointer
     line-height 24px
     transition color .15s ease
     display inline-block
     vertical-align middle
     font-weight 300
     letter-spacing .075em
-    margin-right 1.8em
     &:hover
       color #fff
     &.router-link-active
-      color #fff
+      color #37a
       font-weight 400
     &:nth-child(6)
       margin-right 0
+    
   .github
     color #fff
     font-size .9em
@@ -89,18 +106,7 @@ a
 .fade-enter, .fade-leave-active
   opacity 0
 
-@media (max-width 860px)
-  .header .inner
-    padding 10px
-
 @media (max-width 600px)
   body
     font-size 14px
-  .header
-    .inner
-      padding 10px
-    a
-      margin-right 1em
-    .github
-      display none
 </style>
