@@ -1,15 +1,16 @@
 <template>
-   <div id="modal">
-        <div class="content">
+   <div id="modal" >
+        <div class="content" ref="content">
             <div class="content-header">
               <div class="close"><div @click="$emit('close')">×</div></div>
-              <h2><slot name="title"></slot></h2>
+              <h3><slot name="title"></slot></h3>
             </div>
             <div class="content-body">
                 <slot name="content"></slot>
             </div>
             <div class="content-footer">
-              <button class="btn-default">取消</button>
+              <button class="btn-default" @click="$emit('close')">取消</button>
+              &nbsp;&nbsp;
               <button class="btn-default">确定</button>
             </div>
         </div>
@@ -22,27 +23,21 @@ function centerEle(ele){
 }
 export default {
   name: 'modal',
-  props:["option"],
+ // props:["option"],
   mounted:function(){
-        centerEle(this.$refs.layerContent)
-        this.$watch("option.display",function(newValue){
-            if(newValue){
-                centerEle(this.$refs.layerContent)
-            }
-        })
-        // window.bind("resize",function(){
-        //     if(this.option.display){
-        //         centerEle(this.$refs.layerContent)
-        //     }
-        // }.bind(this))
-    },
-    methods:{
-
-    }
+      var element = this.$refs.content
+      var height = window.getComputedStyle(element,null).height.slice(0,-2)
+      var width = window.getComputedStyle(element,null).width.slice(0,-2)
+      var scrollTop = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop
+      var clientHeight = document.documentElement ? document.documentElement.clientHeight : document.body.clientHeight
+      var clientWidth = document.documentElement ? document.documentElement.clientWidth : document.body.clientWidth
+      element.style.top = scrollTop + ((clientHeight - height)/2)+'px'
+      element.style.left = (clientWidth - width)/2 + 'px'
+  }
 }
 </script>
 
-<style lang="stylus">
+<style lang="sass">
 #modal{
     position:absolute;
     width:100%;
@@ -53,9 +48,8 @@ export default {
     display:block;
     left:0;
     .content {
-        width:calc(100% - 60px);
+        width:90%;
         position: absolute;
-        left:30px;
         background:#fff;
         .content-header{
             height:60px;
@@ -66,8 +60,8 @@ export default {
             color:#555;
             .close{
                 position:absolute;
-                top:20px;
-                left:calc(100% - 50px); 
+                top:-20px;
+                left:calc(100% - 25px); 
                 width:34px;
                 margin:5px;
                 height:34px;
@@ -94,7 +88,7 @@ export default {
                     }
                 }
             }
-            h2{
+            h3{
                  margin:0;                                                    
             }
         }

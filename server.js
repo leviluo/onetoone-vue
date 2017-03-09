@@ -117,5 +117,5 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
-  console.log(`server started at localhost:${port}`)
+  console.log(`server started at 192.168.1.101:${port}`)
 })

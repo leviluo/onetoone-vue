@@ -5,9 +5,8 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo.png" alt="logo">
         </router-link>
-        <router-link to="/location">位置:{{location}}</router-link>
+        <router-link to="/location">{{location}}&nbsp;∨</router-link>
         <router-link class="pull-right" to="/membercenter">个人</router-link>
-        <button @click="option.display=true">打开modal</button>
       </nav>
     </header>
     <transition name="fade" mode="out-in">
@@ -33,8 +32,7 @@ export default {
   data () {
     return {
        option:{
-          styleObj:{width:"300px"},
-          display:true
+          display:false
       }
     }
   },
@@ -104,7 +102,6 @@ body{
     color:#37a;
     text-decoration: none;
     cursor: pointer;
-    line-height:24px;
     display:inline-block;
     vertical-align:middle;
     font-weight:300;
@@ -112,7 +109,7 @@ body{
     &:hover{
       color:#fff;
     }
-    & .router-link-active{    
+    &.router-link-active{    
       color:#37a;
       font-weight:400;
     }
