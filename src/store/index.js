@@ -66,10 +66,10 @@ const store = new Vuex.Store({
     },
 
     FETCH_LOCATION: ({ commit, state }) => {
-      console.log("2222")
+      // console.log("2222")
       //console.log(state.users[id])
-      return fetchLocation().then((response)=>{return response.json()}).then((data)=>{console.log(data)})
-    }
+      return fetchLocation().then((response)=>{return response.json()}).then((data)=>commit('SET_LOCATION',data.content.address))
+    },
   },
 
   mutations: {
@@ -91,6 +91,13 @@ const store = new Vuex.Store({
 
     SET_USER: (state, { user }) => {
       Vue.set(state.users, user.id, user)
+    },
+
+    SET_LOCATION: (state,address) => {
+      // console.log(address)
+      state.location = address
+      // Vue.set(state.locations,'address',address)
+      // console.log(state)
     }
   },
 

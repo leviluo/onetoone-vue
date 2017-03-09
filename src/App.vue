@@ -5,7 +5,7 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo.png" alt="logo">
         </router-link>
-        <router-link to="/location">位置:</router-link>
+        <router-link to="/location">位置:{{location}}</router-link>
         <router-link class="pull-right" to="/membercenter">个人</router-link>
       </nav>
     </header>
@@ -22,15 +22,18 @@
 import axios from 'axios'
 
 function getLocation (store) {
-  console.log(store)
   return store.dispatch('FETCH_LOCATION')
 }
 
 export default {
   name: 'App',
 //  preFetch: getLocation,
+  computed: {
+    location () {
+      return this.$store.state.location
+    }
+  },
   beforeMount () {
-console.log('0000')
     getLocation(this.$store)
   }
   //components:  { Location }
