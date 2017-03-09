@@ -7,19 +7,21 @@
         </router-link>
         <router-link to="/location">位置:{{location}}</router-link>
         <router-link class="pull-right" to="/membercenter">个人</router-link>
+        <button @click="option.display=true">打开modal</button>
       </nav>
     </header>
     <transition name="fade" mode="out-in">
       <router-view class="view"></router-view>
     </transition>
+    <modal v-bind:option="option" v-show="option.display" @close="option.display = false">
+      <div slot="title">测试标题</div>
+      <div slot="content">测试内容</div>
+    </modal>
   </div>
 </template>
 
 <script>
-//import vue from 'vue'
-//require('font-awesome-webpack')
-
-import axios from 'axios'
+import modal from './components/modal.vue'
 
 function getLocation (store) {
   return store.dispatch('FETCH_LOCATION')
@@ -27,7 +29,15 @@ function getLocation (store) {
 
 export default {
   name: 'App',
-//  preFetch: getLocation,
+  preFetch: getLocation,
+  data () {
+    return {
+       option:{
+          styleObj:{width:"300px"},
+          display:true
+      }
+    }
+  },
   computed: {
     location () {
       return this.$store.state.location
@@ -35,81 +45,89 @@ export default {
   },
   beforeMount () {
     getLocation(this.$store)
-  }
-  //components:  { Location }
+  },
+  components: { modal }
 }
 </script>
 
-<style lang="stylus">
-body
-  font-family "Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica
-  font-size 15px
-  background-color lighten(#eceef1, 30%)
-  margin 0
-  padding-top 55px
-  color #34495e
-  overflow-y scroll
-
-a
-  color #34495e
-  text-decoration none
-.header
-  background-color #f0f8ff
-  border-bottom 1px solid #e5e5e5
-  position fixed
-  z-index 999
-  height 50px
-  top 0
-  left 0
-  right 0
-  .inner
-    box-sizing border-box
-    margin 0px auto
-    padding 10px
-  .pull-right
-    float right
-  a
-    color #37a
+<style lang="sass">
+body{
+  font-family:"Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica;
+  font-size:15px;
+  background-color:lighten(#eceef1, 30%);
+  margin:0;
+  padding-top:55px;
+  color:#34495e;
+  overflow-y:scroll;
+}
+.btn-default{
+    padding: 0 5px;
+    line-height: 35px;
+    background: #efefef;
+    border-radius: 5px;
+    color:#37a; 
+    border:none;
+    padding:0 10px;
+    border:1px solid #ccc;
+    &:hover{
+        background: #e5e5e5;
+        cursor:pointer
+    }
+}
+.pull-right{
+  float:right;
+}
+.pull-left{
+  float:left;
+}
+.header{
+  background-color:#f0f8ff;
+  border-bottom:1px solid #e5e5e5;
+  position:fixed;
+  z-index:99;
+  height:50px;
+  top:0;
+  left:0;
+  right:0;
+  .inner{ 
+    box-sizing:border-box;
+    margin:0px auto;
+    padding:10px;
+  }
+  .logo{
+    height:30px;
+    margin-right:10px;
+    display:inline-block;
+    vertical-align:middle;
+  }
+  a{
+    color:#37a;
     text-decoration: none;
-    cursor: pointer
-    line-height 24px
-    transition color .15s ease
-    display inline-block
-    vertical-align middle
-    font-weight 300
-    letter-spacing .075em
-    &:hover
-      color #fff
-    &.router-link-active
-      color #37a
-      font-weight 400
-    &:nth-child(6)
-      margin-right 0
-    
-  .github
-    color #fff
-    font-size .9em
-    margin 0
-    float right
+    cursor: pointer;
+    line-height:24px;
+    display:inline-block;
+    vertical-align:middle;
+    font-weight:300;
+    letter-spacing:.075em;
+    &:hover{
+      color:#fff;
+    }
+    & .router-link-active{    
+      color:#37a;
+      font-weight:400;
+    }
+    &:nth-child(6){
+      margin-right:0;
+    }
+  }
+}
 
-.logo
-  height 30px
-  margin-right 10px
-  display inline-block
-  vertical-align middle
+.fade-enter-active, .fade-leave-active{
+  transition:all .2s ease
+}
 
-.view
-  max-width 800px
-  margin 0 auto
-  position relative
+.fade-enter, .fade-leave-active{
+  opacity:0
+}
 
-.fade-enter-active, .fade-leave-active
-  transition all .2s ease
-
-.fade-enter, .fade-leave-active
-  opacity 0
-
-@media (max-width 600px)
-  body
-    font-size 14px
 </style>
