@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchItems, fetchIdsByType, fetchUser } from './api'
+import { fetchItems, fetchIdsByType, fetchUser,fetchLocation } from './api'
 
 Vue.use(Vuex)
 
@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     activeType: null,
     itemsPerPage: 20,
+    location:'',
     items: {/* [id: number]: Item */},
     users: {/* [id: string]: User */},
     lists: {
@@ -57,9 +58,17 @@ const store = new Vuex.Store({
     },
 
     FETCH_USER: ({ commit, state }, { id }) => {
+      //console.log("2222")
+      //console.log(state.users[id])
       return state.users[id]
         ? Promise.resolve(state.users[id])
         : fetchUser(id).then(user => commit('SET_USER', { user }))
+    },
+
+    FETCH_LOCATION: ({ commit, state }) => {
+      console.log("2222")
+      //console.log(state.users[id])
+      return fetchLocation().then((response)=>{return response.json()}).then((data)=>{console.log(data)})
     }
   },
 

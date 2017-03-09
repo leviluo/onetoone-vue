@@ -63,3 +63,9 @@ export function watchList (type, cb) {
     ref.off('value', handler)
   }
 }
+
+import fetchJsonp from 'fetch-jsonp'
+
+export function fetchLocation () {
+  return fetchJsonp('http://api.map.baidu.com/location/ip?ak=W6TiQkinV02e8UGbIPFqEZMzwWB3e797&callback=JSON_CALLBACK&coor=bd09ll')
+}

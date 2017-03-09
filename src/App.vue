@@ -19,19 +19,19 @@
 //import vue from 'vue'
 //require('font-awesome-webpack')
 
-//import Location from './components/Location.vue'
+import axios from 'axios'
 
-function fetchUser (store) {
-  return store.dispatch('FETCH_USER', {
-    id: store.state.route.params.id
-  })
+function getLocation (store) {
+  console.log(store)
+  return store.dispatch('FETCH_LOCATION')
 }
 
 export default {
   name: 'App',
-  preFetch: fetchUser,
+//  preFetch: getLocation,
   beforeMount () {
-    fetchUser(this.$store)
+console.log('0000')
+    getLocation(this.$store)
   }
   //components:  { Location }
 }
