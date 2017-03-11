@@ -50,6 +50,7 @@ function createRenderer (bundle) {
   })
 }
 
+
 function parseIndex (template) {
   const contentMarker = '<!-- APP -->'
   const i = template.indexOf(contentMarker)

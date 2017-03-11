@@ -35,8 +35,8 @@ if (process.env.NODE_ENV === 'production') {
   // here we overwrite the loader config for <style lang="stylus">
   // so they are extracted.
   vueConfig.loaders = {
-    sass: ExtractTextPlugin.extract({
-      loader: 'style!css!sass',
+    stylus: ExtractTextPlugin.extract({
+      loader: 'style-loader!css-loader!sass-loader',
       fallbackLoader: 'vue-style-loader' // <- this is a dep of vue-loader
     })
   }
